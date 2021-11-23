@@ -75,6 +75,12 @@ function [X, Y] = User_Select_Coordinate(Data, Selection_Parameters)
     Y = Inf;
     %% If inputs are sufficient
     if(Continue)
+        %% remove the bottom and top 1% of data
+        Clim.Upper = prctile(Data(:), 99);
+        Clim.Lower = prctile(Data(:), 1);
+        Data(Data > Clim.Upper) = NaN;
+        Data(Data < Clim.Lower) = NaN;
+        %% Display figure
         %select figure for selection image
         Selection_Figure = figure();
         %display image
